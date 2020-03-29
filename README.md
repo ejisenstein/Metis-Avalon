@@ -23,3 +23,6 @@ For Flask
 
  for SQL Alchemy
 `pip install flask-sqlalchemy`
+
+Flask WTF
+`pip install flask-wtf`
