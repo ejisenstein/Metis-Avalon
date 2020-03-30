@@ -1,3 +1,4 @@
 ENV
 .ipynb_checkpoints/avalon_practice-checkpoint.ipynb
 avalon_practice.ipynb
+Flask/__pycache__/
