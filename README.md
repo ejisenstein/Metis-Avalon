@@ -26,3 +26,9 @@ For Flask
 
 Flask WTF
 `pip install flask-wtf`
+
+Bcrypt
+`pip install flask-bcrypt`
+
+Flask-Login
+`pip install flask-login`
