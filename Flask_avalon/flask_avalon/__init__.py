@@ -9,5 +9,8 @@ app.config['SECRET_KEY'] = '93548cc0fde27fd878cb9aab95033646'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
+
 
 from flask_avalon import routes
