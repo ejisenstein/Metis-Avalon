@@ -3,7 +3,9 @@ from flask_avalon import app, db, bcrypt
 from flask_avalon.models import User, Vote
 from flask_avalon.forms import RegistrationForm, LoginForm, GameStart
 from flask_login import login_user, current_user, logout_user, login_required
+from multiprocessing import Value
 
+counter = Value('i', 0)
 
 @app.route("/")
 def home():
@@ -47,9 +49,9 @@ def logout():
 def gamestatus():
     form = GameStart()
     if form.validate_on_submit():
-        if form.password.data == 'cheeseburgers':
-            flash('Game will now begin', 'success')
-            return redirect(url_for('home'))
-        else:
-            flash('Wrong password dummy', 'danger')
-    return render_template("gamestatus.html", title='Game Status', form=form)
+        flash('Game will now begin', 'success')
+        with counter.get_lock():
+            counter.value += 1
+            out = counter.value
+            return render_template("gamestatus.html", form=form, text=out)
+    return render_template("gamestatus.html", form=form,)

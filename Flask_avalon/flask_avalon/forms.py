@@ -41,7 +41,5 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class GameStart(FlaskForm):
-    password = PasswordField('Password',
-        validators = [DataRequired()])
 
-    submit = SubmitField('Enter')
+    submit = SubmitField('Join')

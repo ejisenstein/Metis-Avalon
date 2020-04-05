@@ -2,29 +2,18 @@
 {% block title %}Game Status{% endblock %}
 {% block content %}
 
+{% if form.validate_on_submit() %}
+
+  <p>Number of users on page is {{ text }}</p>
+
+{% else %}
+
+
     <div class="content-section">
         <form action="" method="POST">
             {{ form.hidden_tag()  }}
-            <fieldset class = "form-group">
-              <legend class ='border-bottom mb-4'>Enter Password to Start Game</legend>
-              <div class="form-group">
-                {{ form.password.label(class="form-control-label")  }}
+              <legend class ='border-bottom mb-4'>Click to Join Game</legend>
 
-                {% if form.password.errors %}
-                  {{ form.password(class="form-control form-control-lg is-invalid")  }}
-                    <div class="invalid-feedback">
-                      {% for error in form.password.errors %}
-                        <span>{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                {% else %}
-
-                  {{ form.password(class="form-control form-control-lg")  }}
-
-                {% endif %}
-
-              </div>
-            </fieldset>
             <div class="form-group">
               {{ form.submit(class="btn btn-outline-info")}}
             </div>
@@ -32,6 +21,6 @@
 
     </div>
 
-
+{% endif %}
 
 {% endblock content %}
