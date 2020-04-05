@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, request, redirect, request
 from flask_avalon import app, db, bcrypt
 from flask_avalon.models import User, Vote
-from flask_avalon.forms import RegistrationForm, LoginForm
+from flask_avalon.forms import RegistrationForm, LoginForm, GameStart
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -43,7 +43,13 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route("/account")
-@login_required
-def account():
-    return render_template('account.html', title='Account')
+@app.route("/gamestatus", methods=['GET', 'POST'])
+def gamestatus():
+    form = GameStart()
+    if form.validate_on_submit():
+        if form.password.data == 'cheeseburgers':
+            flash('Game will now begin', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Wrong password dummy', 'danger')
+    return render_template("gamestatus.html", title='Game Status', form=form)

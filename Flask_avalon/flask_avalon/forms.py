@@ -29,7 +29,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('email taken, be more original')
 
 
-
 class LoginForm(FlaskForm):
     email = StringField('Email',
         validators=[DataRequired(), Email()])
@@ -40,3 +39,9 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
 
     submit = SubmitField('Login')
+
+class GameStart(FlaskForm):
+    password = PasswordField('Password',
+        validators = [DataRequired()])
+
+    submit = SubmitField('Enter')
