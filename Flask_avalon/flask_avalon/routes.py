@@ -48,10 +48,12 @@ def logout():
 @app.route("/gamestatus", methods=['GET', 'POST'])
 def gamestatus():
     form = GameStart()
-    if form.validate_on_submit():
-        flash('Game will now begin', 'success')
-        with counter.get_lock():
-            counter.value += 1
-            out = counter.value
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            flash('Game will now begin', 'success')
+            user = User.query.filter_by(email=form.email.data).first()
+            user.join_game = True
+            db.session.commit()
+            out = User.query.filter_by(join_game=True).count()
             return render_template("gamestatus.html", form=form, text=out)
-    return render_template("gamestatus.html", form=form,)
+    return render_template("gamestatus.html", form=form)
