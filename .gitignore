@@ -1,7 +1,10 @@
 ENV
-.ipynb_checkpoints/avalon_practice-checkpoint.ipynb
+.ipynb_checkpoints/
 avalon_practice.ipynb
 Flask_avalon/flask_avalon/site.db
 .DS_store
 __pycache__
 *.pyc
+SQL-ALchemy - Python Tutorial.ipynb
+census.sqlite
+census_nyc.sqlite

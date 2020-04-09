@@ -6,6 +6,10 @@
 
   <p>Number of users on page is {{ text }}</p>
 
+  {% for name in query%}
+    <span>{{ name }}</span>
+  {% endfor %}
+
 {% else %}
 
   <div class="content-section">

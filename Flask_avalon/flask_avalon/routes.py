@@ -55,5 +55,6 @@ def gamestatus():
             user.join_game = True
             db.session.commit()
             out = User.query.filter_by(join_game=True).count()
-            return render_template("gamestatus.html", form=form, text=out)
+            query = db.select([User])
+            return render_template("gamestatus.html", form=form, text=out, query=query)
     return render_template("gamestatus.html", form=form)
