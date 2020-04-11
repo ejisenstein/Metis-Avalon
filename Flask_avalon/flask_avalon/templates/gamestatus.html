@@ -5,11 +5,10 @@
 {% if form.validate_on_submit() %}
 
   <p>Number of users on page is {{ text }}</p>
-
-  {% for name in query%}
-    <span>{{ name }}</span>
+  {%for users in query%}
+    <!-- <span>{{ users }}</span> -->
+    <input type="submit" name="buttons" value={{ users.username }}>
   {% endfor %}
-
 {% else %}
 
   <div class="content-section">
