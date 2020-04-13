@@ -2,13 +2,73 @@
 {% block title %}Game Status{% endblock %}
 {% block content %}
 
-{% if form.validate_on_submit() %}
 
+
+{% if form.validate_on_submit() %}
   <p>Number of users on page is {{ text }}</p>
-  {%for users in query%}
-    <!-- <span>{{ users }}</span> -->
-    <input type="submit" name="buttons" value={{ users.username }}>
-  {% endfor %}
+
+  <div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+          <fieldset class = "content-group">
+            <legend class = "border-bottom mb-4">TeamBuilder Status</legend>
+
+
+            {% for users in query %}
+            <!-- <span>{{ users }}</span> -->
+              <input type="submit" name="buttons" value={{ users.username }}>
+
+            {% endfor %}
+
+            <p>Team Leaders Order depicted here</p>
+
+            </div>
+        </fieldset>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-info")}}
+        </div>
+    </form>
+  </div>
+
+  <div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+          <fieldset class = "content-group">
+            <legend class = "border-bottom mb-4">Quest </legend>
+
+            <h5>Quest Vote</h5>
+            <p>Evil characters may <b>choose</b> whether the quest fails or not.
+            Good characters must support the quest (they will only see the Support Quest Button)</p>
+
+          <input type="submit" name="yes_quest_button" value="Support Quest">
+
+          <input type="submit" name="no_quest_button" value="Fail Quest">
+
+            </div>
+        </fieldset>
+
+    </form>
+  </div>
+
+  <div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+          <fieldset class = "content-group">
+            <legend class = "border-bottom mb-4"> Character Status</legend>
+
+
+
+
+            <p>Team Leaders Order depicted here</p>
+
+            </div>
+        </fieldset>
+    </form>
+  </div>
+
+
+
+
 {% else %}
 
   <div class="content-section">
