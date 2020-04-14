@@ -13,20 +13,50 @@
           <fieldset class = "content-group">
             <legend class = "border-bottom mb-4">TeamBuilder Status</legend>
 
+            <h6 align = 'center'>Current team leader is (insert team leader here)</h5>
 
+            <!--{% for users in query %}
+             <span>{{ users }}</span>
+
+            {% endfor %}  -->
+
+            <p>Leader List</p>
+              <ol>
+                <li>Player A</li>
+                <li>Player B</li>
+                <li>Player C</li>
+                <li>Player D</li>
+                <li>Player E</li>
+              </ol>
+
+            <br>
+            <p>Select who will accompany you</p>
+            <!--This should only be visible if current_user is leader-->
             {% for users in query %}
-            <!-- <span>{{ users }}</span> -->
-              <input type="submit" name="buttons" value={{ users.username }}>
-
+            <input type="submit" name="buttons" value={{ users.username }}>
             {% endfor %}
+            <br>
+            <br>
+            <input type="submit" name="Submit" value= 'Submit'>
+            <br>
+            <br>
+            <p>Submitted Team</p>
+              <p>Here is where the submited team will go</p>
 
-            <p>Team Leaders Order depicted here</p>
+            <p>Vote Yes if you support this team to go on a quest, no if you don't</p>
+
+            <input type="submit" name="yepers" value= 'Yes'>
+            <input type="submit" name="nopers" value= 'No'>
+
+
+
+
 
             </div>
         </fieldset>
-        <div class="form-group">
+<!--        <div class="form-group">
           {{ form.submit(class="btn btn-outline-info")}}
-        </div>
+        </div> -->
     </form>
   </div>
 
