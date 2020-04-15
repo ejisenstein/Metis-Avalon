@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, request, redirect, request
 from flask_avalon import app, db, bcrypt
 from flask_avalon.models import User, Vote
-from flask_avalon.forms import RegistrationForm, LoginForm, GameStart
+from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, TeamBuilderForm, QuestVote
 from flask_login import login_user, current_user, logout_user, login_required
 from multiprocessing import Value
 
@@ -48,6 +48,8 @@ def logout():
 @app.route("/gamestatus", methods=['GET', 'POST'])
 def gamestatus():
     form = GameStart()
+    team_decision = TeamBuilderForm()
+    quest_vote = QuestVote()
     if current_user.is_authenticated:
         if form.validate_on_submit():
             flash('Game will now begin', 'success')
@@ -57,5 +59,6 @@ def gamestatus():
             out = User.query.filter_by(join_game=True).count()
             query= User.query.filter_by(join_game=True).all()
 
-            return render_template("gamestatus.html", form=form, text=out, query=query)
+            return render_template("gamestatus.html", form=form, text=out,
+            query=query, team_decision=team_decision, quest_vote=quest_vote)
     return render_template("gamestatus.html", form=form)

@@ -13,12 +13,18 @@
           <fieldset class = "content-group">
             <legend class = "border-bottom mb-4">TeamBuilder Status</legend>
 
-            <h6 align = 'center'>Current team leader is (insert team leader here)</h5>
+            <h6 align = 'center'>Current team leader is (insert team leader here)</h6>
 
             <!--{% for users in query %}
              <span>{{ users }}</span>
 
-            {% endfor %}  -->
+            {% endfor %}
+
+            <div class="form-group">
+              {{ form.submit(class="btn btn-outline-info")}}
+            </div>
+
+           -->
 
             <p>Leader List</p>
               <ol>
@@ -45,9 +51,14 @@
 
             <p>Vote Yes if you support this team to go on a quest, no if you don't</p>
 
+            <!--
             <input type="submit" name="yepers" value= 'Yes'>
             <input type="submit" name="nopers" value= 'No'>
-
+            -->
+            <div class="form-group">
+              {{ team_decision.yes(class="btn btn-outline-info")}}
+              {{ team_decision.no(class="btn btn-outline-info")}}
+            </div>
 
 
 
@@ -70,9 +81,10 @@
             <p>Evil characters may <b>choose</b> whether the quest fails or not.
             Good characters must support the quest (they will only see the Support Quest Button)</p>
 
-          <input type="submit" name="yes_quest_button" value="Support Quest">
-
-          <input type="submit" name="no_quest_button" value="Fail Quest">
+            <div class="form-group">
+              {{ quest_vote.yes(class="btn btn-outline-info")}}
+              {{ quest_vote.no(class="btn btn-outline-info")}}
+            </div>
 
             </div>
         </fieldset>

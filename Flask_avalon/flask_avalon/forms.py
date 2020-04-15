@@ -46,3 +46,16 @@ class GameStart(FlaskForm):
         validators=[DataRequired(), Email()])
 
     submit = SubmitField('Join')
+
+
+class TeamBuilderForm(FlaskForm):
+
+    yes = SubmitField('Yes')
+
+    no = SubmitField('No')
+
+class QuestVote(FlaskForm):
+
+    yes = SubmitField('Yes')
+
+    no = SubmitField('No')
