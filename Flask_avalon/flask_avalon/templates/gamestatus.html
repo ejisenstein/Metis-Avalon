@@ -23,11 +23,19 @@
             <div class="form-group">
               {{ form.submit(class="btn btn-outline-info")}}
             </div>
-
-           -->
-
             <p>Leader List</p>
               <ol>
+                <li>class="current-team-leader"</li>
+                <li>Player C</li>
+                <li>Player D</li>
+                <li>Player E</li>
+              </ol>
+           -->
+           <div class="leader-list">
+
+            <p> Leader List</p>
+
+              <ol >
                 <li>Player A</li>
                 <li>Player B</li>
                 <li>Player C</li>
@@ -35,11 +43,17 @@
                 <li>Player E</li>
               </ol>
 
+            </div>
+
             <br>
             <p>Select who will accompany you</p>
             <!--This should only be visible if current_user is leader-->
             {% for users in query %}
-            <input type="submit" name="buttons" value={{ users.username }}>
+            <input type="submit" name="buttons"
+            value={{ users.username }}
+            style="color:red"
+            onclick="color:blue"
+            >
             {% endfor %}
             <br>
             <br>
