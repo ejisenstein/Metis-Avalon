@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, request, redirect, request
 from flask_avalon import app, db, bcrypt
-from flask_avalon.models import User, Vote
+from flask_avalon.models import User, TeamVote
 from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, TeamBuilderForm, QuestVote
 from flask_login import login_user, current_user, logout_user, login_required
 from multiprocessing import Value

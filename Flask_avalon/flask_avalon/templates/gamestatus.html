@@ -45,6 +45,17 @@
 
             </div>
 
+              <!--
+            <div class="leader-list-also">
+            {leader_list = []}
+            {% for user in query %}
+              {{leader_list.append(user.username)}}
+            {% endfor %}
+
+            {{print(leader_list)}}
+            </div>
+            -->
+
             <br>
             <p>Select who will accompany you</p>
             <!--This should only be visible if current_user is leader-->
@@ -123,8 +134,6 @@
   </div>
 
 
-
-
 {% else %}
 
   <div class="content-section">
@@ -150,7 +159,6 @@
                 {% endif %}
 
             </div>
-
 
         </fieldset>
         <div class="form-group">

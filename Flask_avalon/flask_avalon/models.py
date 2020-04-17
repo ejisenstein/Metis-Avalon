@@ -11,20 +11,30 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable = False)
     join_game = db.Column(db.Boolean, default=False, nullable=False)
-    votes = db.relationship('Vote', backref='author', lazy=True)
+    team_vote = db.relationship('TeamVote', backref='author', lazy=True)
     character = db.relationship('Character', backref='author', lazy=True)
 
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
-class Vote(db.Model):
+class TeamVote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    vote = db.Column(db.Boolean, nullable=False)
+    round = db.Column(db.Integer, nullable=False, default=1)
+    team_proposal_count = db.Column(db.Integer, nullable=False, default = 1)
+    team_vote = db.Column(db.Boolean, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    quest_vote = db.relationship('QuestVote', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"Vote('{self.vote}')"
+        return f"TeamVote('{self.team_vote}')"
+
+class QuestVote(db.Model):
+    success = db.Column(db.Boolean, nullable=False)
+    round = db.Column(db.Integer, db.ForeignKey('teamvote.team_vote'), nullable = False)
+
+    def __repr__(self):
+        return f"QuestVote('{self.success}')"
 
 
 class Character(db.Model):
