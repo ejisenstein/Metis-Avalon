@@ -36,7 +36,6 @@ class QuestVote(db.Model):
     def __repr__(self):
         return f"QuestVote('{self.success}')"
 
-
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     good = db.Column(db.Boolean, nullable=False)
