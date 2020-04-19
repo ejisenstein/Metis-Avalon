@@ -32,3 +32,11 @@ Bcrypt
 
 Flask-Login
 `pip install flask-login`
+
+To restart the database, follow these instruction
+- delete the prior database
+- make sure you are in your env `source ENV/bin/activate`
+- `cd Flask_avalon`
+- `python3`
+- `from flask_avalon import db`
+- `db.create_all()`

@@ -48,7 +48,6 @@ def logout():
 @app.route("/gamestatus", methods=['GET', 'POST'])
 def gamestatus():
     form = GameStart()
-    team_decision = TeamBuilderForm()
     quest_vote = QuestVote()
     if current_user.is_authenticated:
         if form.validate_on_submit():
@@ -60,5 +59,5 @@ def gamestatus():
             query= User.query.filter_by(join_game=True).all()
 
             return render_template("gamestatus.html", form=form, text=out,
-            query=query, team_decision=team_decision, quest_vote=quest_vote)
+            query=query, quest_vote=quest_vote)
     return render_template("gamestatus.html", form=form)
