@@ -42,9 +42,6 @@ class LoginForm(FlaskForm):
 
 class GameStart(FlaskForm):
 
-    email = StringField('Email',
-        validators=[DataRequired(), Email()])
-
     submit = SubmitField('Join')
 
 
