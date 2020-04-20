@@ -4,8 +4,11 @@ from flask_avalon.models import User, TeamVote
 from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, TeamBuilderForm, QuestVote
 from flask_login import login_user, current_user, logout_user, login_required
 from multiprocessing import Value
+import random
+
 
 counter = Value('i', 0)
+team_order = random.sample(range(1,6),5)
 
 @app.route("/")
 def home():
@@ -50,14 +53,14 @@ def gamestatus():
     form = GameStart()
     quest_vote = QuestVote()
     if current_user.is_authenticated:
-#        if form.validate_on_submit():
             flash('Game will now begin', 'success')
-#            user = User.query.filter_by(email=form.email.data).first()
+            user_order = team_order[0]
+            team_order.pop(0)
             current_user.join_game = True
             db.session.commit()
             out = User.query.filter_by(join_game=True).count()
             query= User.query.filter_by(join_game=True).all()
             user_list = [users.username for users in query]
             return render_template("gamestatus.html", form=form, text=out,
-            query=query, quest_vote=quest_vote, user_list = user_list)
+            query=query, quest_vote=quest_vote, user_list = user_list, user_order= user_order)
     return render_template("gamestatus.html", form=form)
