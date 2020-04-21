@@ -45,11 +45,9 @@ class GameStart(FlaskForm):
     submit = SubmitField('Join')
 
 
-class TeamBuilderForm(FlaskForm):
+class SubmitTeamForm(FlaskForm):
 
-    yes = SubmitField('Yes')
-
-    no = SubmitField('No')
+    submit = SubmitField('Yes')
 
 class QuestVote(FlaskForm):
 

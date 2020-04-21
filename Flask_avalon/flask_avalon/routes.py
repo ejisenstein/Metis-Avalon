@@ -1,13 +1,14 @@
 from flask import render_template, url_for, flash, request, redirect, request
 from flask_avalon import app, db, bcrypt
 from flask_avalon.models import User, TeamVote
-from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, TeamBuilderForm, QuestVote
+from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, SubmitTeamForm, QuestVote
 from flask_login import login_user, current_user, logout_user, login_required
-from multiprocessing import Value
+from sqlalchemy.sql import select
 import random
 
+num_of_players = 5 #Later version will have dynamic playercounts, this is a var placeholder in the meantime
 
-counter = Value('i', 0)
+
 team_order = random.sample(range(1,6),5)
 
 @app.route("/")
@@ -52,15 +53,25 @@ def logout():
 def gamestatus():
     form = GameStart()
     quest_vote = QuestVote()
-    if current_user.is_authenticated:
-            flash('Game will now begin', 'success')
-            user_order = team_order[0]
-            team_order.pop(0)
-            current_user.join_game = True
-            db.session.commit()
-            out = User.query.filter_by(join_game=True).count()
-            query= User.query.filter_by(join_game=True).all()
-            user_list = [users.username for users in query]
-            return render_template("gamestatus.html", form=form, text=out,
-            query=query, quest_vote=quest_vote, user_list = user_list, user_order= user_order)
+    sub_team_form = SubmitTeamForm()
+
+    if form.validate_on_submit() and current_user.is_authenticated:
+        flash('Game will now begin', 'success')
+        current_user.team_order = team_order[0]
+        team_order.pop(0) #popping out from team order the random num assigned
+        current_user.join_game = True
+        db.session.commit()
+        res = User.query.order_by(User.team_order).all()
+        out = User.query.filter_by(join_game=True).count()
+        query= User.query.filter_by(join_game=True).all()
+        if sub_team_form.validate_on_submit:
+            for r in res:
+                if r.team_order != 1:
+                    r.team_order -=1
+                else:
+                    r.team_order = num_of_players
+                db.session.commit()
+                flash('Count of players shifted')
+        return render_template("gamestatus.html", form=form, text=out,
+        query=query, quest_vote=quest_vote, res = res, sub_team_form=sub_team_form)
     return render_template("gamestatus.html", form=form)

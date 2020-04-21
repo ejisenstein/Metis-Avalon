@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable = False)
     join_game = db.Column(db.Boolean, default=False, nullable=False)
+    team_order = db.Column(db.Integer, nullable=True)
     team_vote = db.relationship('TeamVote', backref='author', lazy=True)
     # character = db.relationship('Character', backref='author', lazy=True)
 

@@ -15,21 +15,12 @@
 
             <h6 align = 'center'>Current team leader is (insert team leader here)</h6>
 
-            <!--{% for users in query %}
-             <span>{{ users }}</span>
-
-            {% endfor %}
-
             <div class="form-group">
-              {{ form.submit(class="btn btn-outline-info")}}
+              {{ sub_team_form.submit(class="btn btn-outline-info")}}
             </div>
-            <p>Leader List</p>
-              <ol>
-                <li>class="current-team-leader"</li>
-                <li>Player C</li>
-                <li>Player D</li>
-                <li>Player E</li>
-              </ol>
+
+
+
            -->
            <div class="leader-list">
 
@@ -68,8 +59,10 @@
 
 
             <p>testing the leader list</p>
-              <p>{{user_list}}</p>
-              <p>{{user_order}}</p>
+              {% for r in res %}
+                {% print r.team_order, r.username%}
+              {% endfor %}
+
 
             <!--
             <input type="submit" name="yepers" value= 'Yes'>
