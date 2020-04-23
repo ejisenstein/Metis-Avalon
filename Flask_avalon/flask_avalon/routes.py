@@ -53,26 +53,30 @@ def gamestatus():
     quest_vote = QuestVote()
     sub_team_form = SubmitTeamForm()
 
-    if form.validate_on_submit() and current_user.is_authenticated:
+    if form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False:
         flash('Game will now begin', 'success')
-        # current_user.team_order = team_order[0]
-        # team_order.pop(0) #popping out from team order the random num assigned
         current_user.join_game = True
         db.session.commit()
         # res = User.query.order_by(User.team_order).all()
         # out = User.query.filter_by(join_game=True).count()
         joined_players= User.query.filter_by(join_game=True).all()
         init_team_list = random.sample(range(1,6),5)
-        order_of_players = User.query.order_by(User.team_order.desc()).all()
+        #order_of_players = User.query.order_by(User.team_order.asc()).all()
         active_players = User.query.filter_by(join_game=True).count()
-        # if active_players == num_of_players:
-        #     # for ind, player in enumerate(player_outs):
-        #     #     player.team_order = init_team_list[ind]
-        #     # db.session.commit()
-        #     # player_outs = User.query.all()
+        if active_players == num_of_players:
+            for ind, player in enumerate(joined_players):
+                player.team_order = init_team_list[ind]
+                db.session.commit()
+            order_of_players = User.query.order_by(User.team_order.asc()).all()
 
+          #
+          #       <div class="form-group">
+          #   {{ sub_team_form.submit(class="btn btn-outline-info")}}
+          # </div>
+#       <div class="form-group">
+#     {{ sub_team_form.submit(class="btn btn-outline-info")}}
+# </div>
 
-        #
         # if sub_team_form.validate_on_submit:
         #     # for r in res:
         #     #     if r.team_order != 1:
@@ -81,7 +85,12 @@ def gamestatus():
         #     #         r.team_order = num_of_players
         #         db.session.commit()
         #         flash('Count of players shifted')
+        #sub_team_form=sub_team_form, quest_vote=quest_vote
+        # <div class="form-group">
+        #   {{ quest_vote.yes(class="btn btn-outline-info")}}
+        #   {{ quest_vote.no(class="btn btn-outline-info")}}
+        # </div>
+
         return render_template("gamestatus.html", form=form,
-        order_of_players=order_of_players, active_players=active_players, joined_players=joined_players,
-        sub_team_form=sub_team_form, quest_vote=quest_vote)
+        order_of_players=order_of_players, active_players=active_players, joined_players=joined_players)
     return render_template("gamestatus.html", form=form)

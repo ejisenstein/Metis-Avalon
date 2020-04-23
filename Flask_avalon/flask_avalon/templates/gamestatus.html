@@ -15,11 +15,6 @@
 
             <h6 align = 'center'>Current team leader is (insert team leader here)</h6>
 
-            <div class="form-group">
-              {{ sub_team_form.submit(class="btn btn-outline-info")}}
-            </div>
-
-
 
            <div class="leader-list">
 
@@ -60,9 +55,10 @@
             <p>testing the order</p>
               <ol>
               {% for r in order_of_players %}
-              <li>{{r.username}}</li>
+              <li>{{r.username, r.team_order}}</li>
               {% endfor %}
               </ol>
+
 
 
 
@@ -93,10 +89,6 @@
             <p>Evil characters may <b>choose</b> whether the quest fails or not.
             Good characters must support the quest (they will only see the Support Quest Button)</p>
 
-            <div class="form-group">
-              {{ quest_vote.yes(class="btn btn-outline-info")}}
-              {{ quest_vote.no(class="btn btn-outline-info")}}
-            </div>
 
             </div>
         </fieldset>
