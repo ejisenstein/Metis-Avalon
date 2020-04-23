@@ -5,7 +5,7 @@
 
 
 {% if form.validate_on_submit() %}
-  <p>Number of users on page is {{ text }}</p>
+  <p>Number of users on page is {{ active_players }}</p>
 
   <div class="content-section">
     <form method="POST" action="">
@@ -21,7 +21,6 @@
 
 
 
-           -->
            <div class="leader-list">
 
             <p> Leader List</p>
@@ -40,7 +39,7 @@
             <br>
             <p>Select who will accompany you</p>
             <!--This should only be visible if current_user is leader-->
-            {% for users in query %}
+            {% for users in joined_players %}
             <input type="submit" name="buttons"
               value={{ users.username }}
               style="color:red"
@@ -58,10 +57,13 @@
             <p>Vote Yes if you support this team to go on a quest, no if you don't</p>
 
 
-            <p>testing the leader list</p>
-              {% for r in res %}
-                {% print r.team_order, r.username%}
+            <p>testing the order</p>
+              <ol>
+              {% for r in order_of_players %}
+              <li>{{r.username}}</li>
               {% endfor %}
+              </ol>
+
 
 
             <!--
