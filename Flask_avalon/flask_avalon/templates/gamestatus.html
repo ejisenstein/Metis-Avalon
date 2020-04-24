@@ -2,10 +2,12 @@
 {% block title %}Game Status{% endblock %}
 {% block content %}
 
+{% if ((form.validate_on_submit()) and (active_players < num_of_players)) %}
+  <p>Number of active players are {{active_players}} </p>
+  <p>Still waiting on players, game will begin when full party has joined</p>
 
-
-{% if form.validate_on_submit() %}
-  <p>Number of users on page is {{ active_players }}</p>
+{% elif ((form.validate_on_submit()) and (active_players == num_of_players)) %}
+<p>Number of users on page is {{ active_players }}</p>
 
   <div class="content-section">
     <form method="POST" action="">
@@ -14,7 +16,6 @@
             <legend class = "border-bottom mb-4">TeamBuilder Status</legend>
 
             <h6 align = 'center'>Current team leader is (insert team leader here)</h6>
-
 
            <div class="leader-list">
 
@@ -29,7 +30,6 @@
               </ol>
 
             </div>
-
 
             <br>
             <p>Select who will accompany you</p>
@@ -59,58 +59,44 @@
               {% endfor %}
               </ol>
 
-
-
-
-            <!--
-            <input type="submit" name="yepers" value= 'Yes'>
-            <input type="submit" name="nopers" value= 'No'>
-            -->
-
-
-
-
-
             </div>
+
         </fieldset>
-<!--        <div class="form-group">
-          {{ form.submit(class="btn btn-outline-info")}}
-        </div> -->
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <div class="content-section">
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-          <fieldset class = "content-group">
-            <legend class = "border-bottom mb-4">Quest </legend>
+    <div class="content-section">
+      <form method="POST" action="">
+          {{ form.hidden_tag() }}
+            <fieldset class = "content-group">
+              <legend class = "border-bottom mb-4">Quest </legend>
 
-            <h5>Quest Vote</h5>
-            <p>Evil characters may <b>choose</b> whether the quest fails or not.
-            Good characters must support the quest (they will only see the Support Quest Button)</p>
+              <h5>Quest Vote</h5>
+              <p>Evil characters may <b>choose</b> whether the quest fails or not.
+              Good characters must support the quest (they will only see the Support Quest Button)</p>
 
 
-            </div>
+      </div>
         </fieldset>
 
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <div class="content-section">
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-          <fieldset class = "content-group">
-            <legend class = "border-bottom mb-4"> Character Status</legend>
+    <div class="content-section">
+      <form method="POST" action="">
+          {{ form.hidden_tag() }}
+            <fieldset class = "content-group">
+              <legend class = "border-bottom mb-4"> Character Status</legend>
+
+              <p>Team Leaders Order depicted here</p>
+
+              </div>
+          </fieldset>
+      </form>
+    </div>
 
 
 
-
-            <p>Team Leaders Order depicted here</p>
-
-            </div>
-        </fieldset>
-    </form>
-  </div>
 
 
 {% else %}
@@ -120,7 +106,6 @@
         {{ form.hidden_tag() }}
           <fieldset class = "form-group">
             <legend class = "border-bottom mb-4">Enter email and click join to begin game</legend>
-
 
         </fieldset>
         <div class="form-group">
