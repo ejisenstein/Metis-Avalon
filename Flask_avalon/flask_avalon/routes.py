@@ -44,6 +44,8 @@ def login():
 
 @app.route("/logout")
 def logout():
+    current_user.join_game=False
+    db.session.commit()
     logout_user()
     return redirect(url_for('home'))
 
