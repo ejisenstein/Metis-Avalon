@@ -56,31 +56,36 @@ def gamestatus():
     sub_team_form = SubmitTeamForm()
     active_players = User.query.filter_by(join_game=True).count()
 
-    if form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players < num_of_players:
+    if (form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players < num_of_players-1):
         flash('You have logged in! Game will begin when rest of party logs in', 'success')
         current_user.join_game = True
         db.session.commit()
         active_players = User.query.filter_by(join_game=True).count()
-        order_of_players=0
-        joined_player = User.query.filter_by(join_game=True).all()
+        # order_of_players=0
+        # joined_players = User.query.filter_by(join_game=True).all()
 
 
-    elif form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players == num_of_players:
-        flash ('Game has begun', 'success')
+    elif form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players == num_of_players-1:
+        flash('Game has begun', 'success')
         current_user.join_game = True
         db.session.commit()
 
-        joined_player = User.query.filter_by(join_game=True).all()
+        joined_players = User.query.filter_by(join_game=True).all()
         init_team_list = random.sample(range(1,6),5)
         active_players = User.query.filter_by(join_game=True).count()
 
-        for ind, player in enumerate(joined_players):
-            player.team_order = init_team_list[ind]
-            db.session.commit()
-        order_of_players = User.query.order_by(User.team_order.asc()).all()
+        # for ind, player in enumerate(joined_players):
+        #     player.team_order = init_team_list[ind]
+        #     db.session.commit()
+
+        order_of_players = User.query.order_by(User.username).all()
+
+
+
         return render_template("gamestatus.html", form=form,
         order_of_players=order_of_players,
         active_players=active_players,
         joined_players=joined_players,
         num_of_players=num_of_players)
-    return render_template("gamestatus.html", form=form, active_players=active_players, num_of_players=num_of_players)
+    return render_template("gamestatus.html", form=form,
+    active_players=active_players, num_of_players=num_of_players)

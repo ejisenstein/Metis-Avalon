@@ -2,7 +2,7 @@
 {% block title %}Game Status{% endblock %}
 {% block content %}
 
-{% if ((form.validate_on_submit()) and (active_players < num_of_players)) %}
+{% if ( (form.validate_on_submit()) and (active_players< num_of_players)  ) %}
   <p>Number of active players are {{active_players}} </p>
   <p>Still waiting on players, game will begin when full party has joined</p>
 
@@ -21,15 +21,8 @@
 
             <p> Leader List</p>
 
-              <ol >
-                <li>Player A</li>
-                <li>Player B</li>
-                <li>Player C</li>
-                <li>Player D</li>
-                <li>Player E</li>
-              </ol>
-
             </div>
+            {{joined_players}}
 
             <br>
             <p>Select who will accompany you</p>
@@ -52,14 +45,8 @@
             <p>Vote Yes if you support this team to go on a quest, no if you don't</p>
 
 
-            <p>testing the order</p>
-              <ol>
-              {% for r in order_of_players %}
-              <li>{{r.username, r.team_order}}</li>
-              {% endfor %}
-              </ol>
 
-            </div>
+          </div>
 
 
 
