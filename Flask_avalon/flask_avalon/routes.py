@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, request, redirect, request
 from flask_avalon import app, db, bcrypt
-from flask_avalon.models import User, TeamVote
+from flask_avalon.models import User
 from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, SubmitTeamForm, QuestVote
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.sql import select
@@ -57,13 +57,13 @@ def gamestatus():
     active_players = User.query.filter_by(join_game=True).count()
 
     if (form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players < num_of_players-1):
+        ##since current user join happens after form validate, num_of_players must be subtracted by 1
         flash('You have logged in! Game will begin when rest of party logs in', 'success')
         current_user.join_game = True
         db.session.commit()
         active_players = User.query.filter_by(join_game=True).count()
         # order_of_players=0
         # joined_players = User.query.filter_by(join_game=True).all()
-
 
     elif form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players == num_of_players-1:
         flash('Game has begun', 'success')
@@ -74,11 +74,14 @@ def gamestatus():
         init_team_list = random.sample(range(1,6),5)
         active_players = User.query.filter_by(join_game=True).count()
 
-        # for ind, player in enumerate(joined_players):
-        #     player.team_order = init_team_list[ind]
-        #     db.session.commit()
+        for ind, player in enumerate(joined_players):
+            player.team_order = init_team_list[ind]
+            db.session.commit()
 
         order_of_players = User.query.order_by(User.username).all()
+
+    #if request.method=='POST' and joined_players ==5:
+
 
 
 

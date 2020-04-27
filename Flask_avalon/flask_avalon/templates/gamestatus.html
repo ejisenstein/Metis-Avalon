@@ -20,20 +20,27 @@
            <div class="leader-list">
 
             <p> Leader List</p>
-
+            <ol>
+              {%for r in order_of_players%}
+                <li>{{r.username}}</li>
+              {%endfor%}
+            </ol>
             </div>
-            {{joined_players}}
 
             <br>
             <p>Select who will accompany you</p>
             <!--This should only be visible if current_user is leader-->
-            {% for users in joined_players %}
-            <input type="submit" name="buttons"
-              value={{ users.username }}
-              style="color:red"
-              onclick="color:blue"
-            >
-            {% endfor %}
+
+
+            <form action="/" method="post">
+              {% for users in joined_players%}
+            <label><input type="checkbox" name="mycheckbox" value={{users.username}}
+              >{{users.username}}</label><br>
+              {%endfor%}
+              <input type="submit">
+            </form>
+
+
             <br>
             <br>
             <input type="submit" name="Submit" value= 'Submit'>
