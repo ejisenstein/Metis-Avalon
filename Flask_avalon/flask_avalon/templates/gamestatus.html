@@ -34,11 +34,13 @@
 
             <form action="/" method="post">
               {% for users in joined_players%}
-            <label><input type="checkbox" name="mycheckbox" value={{users.username}}
+            <label><input type="checkbox" name="teamcheck" value={{users.username}}
               >{{users.username}}</label><br>
               {%endfor%}
               <input type="submit">
             </form>
+
+            <p>This is whats in the post {{post_stuff}}</p>
 
 
             <br>

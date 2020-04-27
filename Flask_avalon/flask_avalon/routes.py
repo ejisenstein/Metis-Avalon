@@ -55,6 +55,8 @@ def gamestatus():
     quest_vote = QuestVote()
     sub_team_form = SubmitTeamForm()
     active_players = User.query.filter_by(join_game=True).count()
+    joined_players = User.query.filter_by(join_game=True).all()
+
 
     if (form.validate_on_submit() and current_user.is_authenticated and current_user.join_game==False and active_players < num_of_players-1):
         ##since current user join happens after form validate, num_of_players must be subtracted by 1
@@ -80,8 +82,8 @@ def gamestatus():
 
         order_of_players = User.query.order_by(User.username).all()
 
-    #if request.method=='POST' and joined_players ==5:
-
+        if request.method=='POST':
+             post_stuff = request.form.getlist('teamcheck')
 
 
 
@@ -89,6 +91,7 @@ def gamestatus():
         order_of_players=order_of_players,
         active_players=active_players,
         joined_players=joined_players,
-        num_of_players=num_of_players)
+        num_of_players=num_of_players,
+        post_stuff=post_stuff)
     return render_template("gamestatus.html", form=form,
     active_players=active_players, num_of_players=num_of_players)
