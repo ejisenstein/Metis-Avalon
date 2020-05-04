@@ -5,6 +5,7 @@ from flask_avalon.forms import RegistrationForm, LoginForm, GameStart, SubmitTea
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.sql import select
 import random
+import sys
 
 num_of_players = 5 #Later version will have dynamic playercounts, this is a var placeholder in the meantime
 
@@ -83,8 +84,10 @@ def gamestatus():
         order_of_players = User.query.order_by(User.username).all()
 
         if request.method=='POST':
+             print(request.form.getlist('teamcheck'))
              post_stuff = request.form.getlist('teamcheck')
-
+             print(dir(request.form), file=sys.stderr)
+             print(request.form, file=sys.stderr)
 
 
         return render_template("gamestatus.html", form=form,

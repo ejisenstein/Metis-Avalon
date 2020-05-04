@@ -12,42 +12,42 @@
   <div class="content-section">
     <form method="POST" action="">
         {{ form.hidden_tag() }}
-          <fieldset class = "content-group">
+          <!-- <fieldset class = "content-group">
             <legend class = "border-bottom mb-4">TeamBuilder Status</legend>
+            </fieldset> -->
+      </form>
+  </div>
 
-            <h6 align = 'center'>Current team leader is (insert team leader here)</h6>
+  <h6 align = 'center'>Current team leader is (insert team leader here)</h6>
 
-           <div class="leader-list">
+   <div class="leader-list">
 
-            <p> Leader List</p>
-            <ol>
-              {%for r in order_of_players%}
-                <li>{{r.username}}</li>
-              {%endfor%}
-            </ol>
-            </div>
+    <p> Leader List</p>
+    <ol>
+      {%for r in order_of_players%}
+        <li>{{r.username}}</li>
+      {%endfor%}
+    </ol>
+  </div>
+    <br>
 
-            <br>
-            <p>Select who will accompany you</p>
-            <!--This should only be visible if current_user is leader-->
+    <p>Select who will accompany you</p>
+    <!--This should only be visible if current_user is leader-->
+    <div class="team-submit">
+      <form action="" method="POST">
+
+      {% for users in joined_players%}
+    <label><input type="checkbox" name="teamcheck" value={{users.username}}
+      >{{users.username}}</label><br>
+      {%endfor%}
+      <input type="submit">
+     </form>
+    </div>
+
+    <p>This is whats in the post {{post_stuff}}</p>
 
 
-            <form action="/" method="post">
-              {% for users in joined_players%}
-            <label><input type="checkbox" name="teamcheck" value={{users.username}}
-              >{{users.username}}</label><br>
-              {%endfor%}
-              <input type="submit">
-            </form>
-
-            <p>This is whats in the post {{post_stuff}}</p>
-
-
-            <br>
-            <br>
-            <input type="submit" name="Submit" value= 'Submit'>
-            <br>
-            <br>
+    <br>
             <p>Submitted Team</p>
               <p>Here is where sthe submited team will go</p>
 
@@ -55,32 +55,29 @@
 
 
 
-          </div>
 
 
 
     <div class="content-section">
       <form method="POST" action="">
           {{ form.hidden_tag() }}
-            <fieldset class = "content-group">
               <legend class = "border-bottom mb-4">Quest </legend>
 
               <h5>Quest Vote</h5>
               <p>Evil characters may <b>choose</b> whether the quest fails or not.
               Good characters must support the quest (they will only see the Support Quest Button)</p>
 
-
+        </form>
       </div>
 
 
     <div class="content-section">
       <form method="POST" action="">
           {{ form.hidden_tag() }}
-            <fieldset class = "content-group">
               <legend class = "border-bottom mb-4"> Character Status</legend>
 
               <p>Team Leaders Order depicted here</p>
-
+      </form>
               </div>
 
 
